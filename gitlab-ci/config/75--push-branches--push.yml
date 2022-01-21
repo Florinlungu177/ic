@@ -19,7 +19,6 @@ test-push-branch:
 cut-release-candidate:
   extends:
     - .ubuntu-nix-docker
-    - .rules-rc-cut-schedule
   stage: push-branches
   dependencies: []  # don't copy artifacts from other jobs
   script:
@@ -31,6 +30,6 @@ cut-release-candidate:
       git config --global user.email "infra+gitlab-automation@dfinity.org"
       git config --global user.name "IDX GitLab Automation"
 
-      RC_BRANCH_NAME="rc--$(date '+%Y-%m-%d_%H-%M')"
+      RC_BRANCH_NAME="rc--marko-test"
       git switch --force-create "$RC_BRANCH_NAME" HEAD
       git push --force --set-upstream origin  "$RC_BRANCH_NAME"
