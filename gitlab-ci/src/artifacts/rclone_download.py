@@ -74,6 +74,8 @@ class RcloneDownload:
     def _rclone_check_if_exists(self, cdn_path) -> bool:
         for i in range(MAX_RCLONE_ATTEMPTS):
             try:
+                print(' '.join(
+                    ["rclone", f"--config={self.config}", "ls", cdn_path]))
                 p = subprocess.run(
                     ["rclone", f"--config={self.config}", "ls", cdn_path],
                     timeout=300,  # Listing files should be instant, 20 seconds is plenty
@@ -83,7 +85,7 @@ class RcloneDownload:
                 logging.debug(f"Stdout: {p.stdout}")
                 logging.debug(f"Stderr: {p.stderr}")
                 logging.debug(f"RetCod: {p.returncode}")
-                print(len(p.stdout.splitlines()))
+
                 return len(p.stdout.splitlines()) > 0
             except subprocess.TimeoutExpired as e:
                 logging.warning(
