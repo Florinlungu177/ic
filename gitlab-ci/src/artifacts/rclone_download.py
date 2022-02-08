@@ -82,6 +82,8 @@ class RcloneDownload:
                 logging.debug(f"Config: {self.config}")
                 logging.debug(f"Stdout: {p.stdout}")
                 logging.debug(f"Stderr: {p.stderr}")
+                logging.debug(f"RetCod: {p.returncode}")
+                print(len(p.stdout.splitlines()))
                 return len(p.stdout.splitlines()) > 0
             except subprocess.TimeoutExpired as e:
                 logging.warning(
