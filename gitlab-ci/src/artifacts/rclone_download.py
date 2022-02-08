@@ -43,8 +43,8 @@ class RcloneDownload:
         self._local_repo = None
         # Setting the repo_root relies on the relative path of the script in the repo
         # in order to support tool usage with stdlib only for the common path
-        self.repo_root = pathlib.Path(__file__).parent.parent.parent.parent.absolute()
-        #self.repo_root = git.Repo('.', search_parent_directories=True).working_tree_dir
+        #self.repo_root = pathlib.Path(__file__).parent.parent.parent.parent.absolute()
+        self.repo_root = git.Repo('.', search_parent_directories=True).working_tree_dir
 
         if not config:
             config = os.path.join(self.repo_root, ".rclone-anon.conf")
