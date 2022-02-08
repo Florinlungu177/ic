@@ -14,8 +14,7 @@ prod-hourly-pipeline:
 
 prod-nightly-pipeline:
   extends: .rules-rollout-pipeline-auto
-  stage: prod-tests-01
-  needs: ["cargo-pipeline"]
+  tage: prod-tests-01
   variables:
     CD_ENV: "NIGHTLY"
     TESTNET1: "cdnightly"
