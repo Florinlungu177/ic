@@ -11,34 +11,6 @@ docker-autobuild-protected:
   script:
     - |
       echo "Running docker autobuild protected"
-      set -euo pipefail
-
-      nix-collect-garbage -d
-
-      cd gitlab-ci/config
-      IMAGE=$(grep registry.gitlab.com 00--common.yml | awk '{ print $2 }' | tr -d '"')
-      IMAGE_NAME=$(echo "$IMAGE" | cut -d':' -f1)
-      IMAGE_TAG=$(echo "$IMAGE" | cut -d':' -f2)
-      cd -
-
-      if (docker images | grep "$IMAGE_NAME" | grep -q "$IMAGE_TAG"); then
-        echo "Image $IMAGE_NAME already present!"
-      else
-        echo -e "\e[0Ksection_start:$(date +%s):docker_build_script[collapsed=true]\r\e[0KClick here to see the docker_build_script"
-        ./gitlab-ci/docker/docker-build-local-image.sh
-        echo -e "\e[0Ksection_end:$(date +%s):docker_build_script\r\e[0K"
-      fi 
-
-      echo -e "\e[0Ksection_start:$(date +%s):sys_info[collapsed=true]\r\e[0KClick here to see system info"
-      echo "SYS-INFO UPTIME"
-      uptime
-      echo "SYS-INFO DISK SPACE"
-      df -h
-      echo "SYS-INFO DOCKER IMAGES"
-      docker images
-      echo "SYS-INFO DOCKER CONTAINERS"
-      docker ps -a
-      echo -e "\e[0Ksection_end:$(date +%s):sys_info\r\e[0K"
 
 docker-autobuild-tests:
   extends: 
